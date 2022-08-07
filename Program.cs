@@ -73,16 +73,23 @@ namespace graphconsoleapp
             var client = GetAuthenticatedGraphClient(config);
 
             // request 1 - all users
-            var requestAllUsers = client.Users.Request();
+            /* var requestAllUsers = client.Users.Request();
             var results = requestAllUsers.GetAsync().Result;
             foreach (var user in results)
             {
                 Console.WriteLine(user.Id + ": " + user.DisplayName + " <" + user.Mail + ">");
             }
             Console.WriteLine("\nGraph Request:");
-            Console.WriteLine(requestAllUsers.GetHttpRequestMessage().RequestUri);
+            Console.WriteLine(requestAllUsers.GetHttpRequestMessage().RequestUri); */
 
+            // request 2 - current user
+            var requestMeUser = client.Me.Request();
 
+            var resultMe = requestMeUser.GetAsync().Result;
+            Console.WriteLine(resultMe.Id + ": " + resultMe.DisplayName + " <" + resultMe.Mail + ">");
+
+            Console.WriteLine("\nGraph Request:");
+            Console.WriteLine(requestMeUser.GetHttpRequestMessage().RequestUri);
 
 
         }
