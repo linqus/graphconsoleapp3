@@ -73,7 +73,7 @@ namespace graphconsoleapp
             var client = GetAuthenticatedGraphClient(config);
             // request 1 - current user's photo
 
-            var requestUserPhoto = client.Me.Photo.Request();
+ /*            var requestUserPhoto = client.Me.Photo.Request();
             var resultsUserPhoto = requestUserPhoto.GetAsync().Result;
             // display photo metadata
             Console.WriteLine("                Id: " + resultsUserPhoto.Id);
@@ -95,7 +95,25 @@ namespace graphconsoleapp
             Console.WriteLine("Saved file to: " + profilePhotoPath);
 
             Console.WriteLine("\nGraph Request:");
-            Console.WriteLine(requestUserPhoto.GetHttpRequestMessage().RequestUri);
+            Console.WriteLine(requestUserPhoto.GetHttpRequestMessage().RequestUri); */
+
+            // request 2 - user's manager
+            var userId = "linkiewicz_k@emilfrey.pl";
+            var requestUserManager = client.Users[userId]
+                                            .Manager
+                                            .Request();
+            var resultsUserManager = requestUserManager.GetAsync().Result;
+            Console.WriteLine("   User: " + userId);
+            Console.WriteLine("Manager: " + resultsUserManager.Id);
+            var resultsUserManagerUser = resultsUserManager as Microsoft.Graph.User;
+            if (resultsUserManagerUser != null)
+            {
+                Console.WriteLine("Manager: " + resultsUserManagerUser.DisplayName);
+                Console.WriteLine(resultsUserManager.Id + ": " + resultsUserManagerUser.DisplayName + " <" + resultsUserManagerUser.Mail + ">");
+            }
+
+            Console.WriteLine("\nGraph Request:");
+            Console.WriteLine(requestUserManager.GetHttpRequestMessage().RequestUri);
 
         }
     }
