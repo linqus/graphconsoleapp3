@@ -83,15 +83,20 @@ namespace graphconsoleapp
             Console.WriteLine(requestAllUsers.GetHttpRequestMessage().RequestUri); */
 
             // request 2 - current user
-            var requestMeUser = client.Me.Request();
+            /* var requestMeUser = client.Me.Request();
 
             var resultMe = requestMeUser.GetAsync().Result;
             Console.WriteLine(resultMe.Id + ": " + resultMe.DisplayName + " <" + resultMe.Mail + ">");
 
             Console.WriteLine("\nGraph Request:");
-            Console.WriteLine(requestMeUser.GetHttpRequestMessage().RequestUri);
+            Console.WriteLine(requestMeUser.GetHttpRequestMessage().RequestUri); */
 
+            // request 3 - specific user
+            var requestSpecificUser = client.Users["linkiewicz_k@pgamotors.pl"].Request();
+            var resultOtherUser = requestSpecificUser.GetAsync().Result;
+            Console.WriteLine(resultOtherUser.Id + ": " + resultOtherUser.DisplayName + " <" + resultOtherUser.Mail + ">");
 
+            Console.WriteLine("\nGraph Request:");
         }
     }
 }
